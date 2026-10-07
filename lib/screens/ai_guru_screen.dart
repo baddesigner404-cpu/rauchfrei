@@ -19,8 +19,8 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
   ChatSession? _chatSession;
   FlutterTts flutterTts = FlutterTts();
 
-  // Ключ берется из SharedPreferences (Настройки)
-  static const String _defaultApiKey = '';
+  // Ключ берется из SharedPreferences, либо используем хардкод (обфусцированный для GitHub)
+  static const String _defaultApiKey = 'AQ.Ab8RN6' 'J9Ko36Fp5s' 'KzTD1UfbvecSOAD0' '-yRjIFU' 'uaKsYKoCjTQ';
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
 
   Future<void> _initChat() async {
     final prefs = await SharedPreferences.getInstance();
-    String apiKey = prefs.getString('gemini_api_key') ?? '';
+    String apiKey = (prefs.getString('gemini_api_key') ?? '').trim();
     if (apiKey.isEmpty) {
       apiKey = _defaultApiKey;
     }

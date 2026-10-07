@@ -29,7 +29,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _saveApiKey(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('gemini_api_key', key);
+    await prefs.setString('gemini_api_key', key.trim());
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('API-ключ сохранен!'), backgroundColor: Colors.green),
