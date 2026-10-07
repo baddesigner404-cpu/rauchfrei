@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../models/cytisine_schedule.dart';
+import '../widgets/glass_card.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -25,9 +26,12 @@ class DashboardScreen extends StatelessWidget {
     final savedMoney = packsNotSmoked * userData.pricePerPack;
 
     return Scaffold(
+      backgroundColor: Colors.transparent, // Важно для стекла! Фон будет в MainScreen
       appBar: AppBar(
-        title: const Text('Rauchfrei'),
+        title: const Text('Rauchfrei', style: TextStyle(fontWeight: FontWeight.w600)),
         centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       body: SafeArea(
         child: Padding(
@@ -35,29 +39,36 @@ class DashboardScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Время без сигарет:',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
               const SizedBox(height: 10),
-              Text(
-                '$days дн. $hours ч.',
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              GlassCard(
+                child: Column(
+                  children: [
+                    const Text(
+                      'Время без сигарет',
+                      style: TextStyle(fontSize: 16, color: Colors.white70),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '$days дн. $hours ч.',
+                      style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 30),
-              Column(
-                children: [
-                  const Text('Сэкономлено', style: TextStyle(fontSize: 18)),
-                  const SizedBox(height: 10),
-                  Text(
-                    '${savedMoney.toStringAsFixed(2)} ₽', 
-                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              const SizedBox(height: 24),
+              GlassCard(
+                child: Column(
+                  children: [
+                    const Text('Сэкономлено', style: TextStyle(fontSize: 16, color: Colors.white70)),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${savedMoney.toStringAsFixed(0)} ₽', 
+                      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 24),
               if (userData.isTakingCytisine && userData.cytisineStartDate != null)
                 _buildCytisineWidget(userData.cytisineStartDate!),
             ],
@@ -73,27 +84,27 @@ class DashboardScreen extends StatelessWidget {
     final interval = CytisineSchedule.getIntervalForDay(currentDay);
 
     if (pillsCount == 0) {
-      return const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text('Курс завершен!', textAlign: TextAlign.center),
+      return const GlassCard(
+        child: Text('Курс поддержки завершен!', textAlign: TextAlign.center, style: TextStyle(color: Colors.white)),
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return GlassCard(
+      borderColor: Colors.orange.withOpacity(0.3),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Курс поддержки: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          Text('Сегодня нужно принять: $pillsCount шт.'),
-          Text('Интервал: $interval'),
+          Text('Курс поддержки: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orangeAccent)),
           const SizedBox(height: 12),
+          Text('Сегодня нужно принять: $pillsCount шт.', style: const TextStyle(color: Colors.white70)),
+          const SizedBox(height: 4),
+          Text('Интервал: $interval', style: const TextStyle(color: Colors.white70)),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               pillsCount,
-              (index) => const Icon(Icons.circle, size: 24),
+              (index) => const Icon(Icons.circle, size: 24, color: Colors.orangeAccent),
             ),
           ),
         ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'dashboard_screen.dart';
 import 'health_screen.dart';
 import 'settings_screen.dart';
@@ -22,33 +23,59 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey.shade600,
-        backgroundColor: const Color(0xFF070707),
-        elevation: 0,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
-            label: 'Прогресс',
+      extendBody: true, // Важно для стекла под навигацией
+      body: Stack(
+        children: [
+          // Ambient Gradient Background
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF0F1A15), // Легкий темно-зеленый оттенок
+                  Color(0xFF070707),
+                  Color(0xFF0A0F1A), // Легкий темно-синий оттенок
+                ],
+              ),
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Здоровье',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Настройки',
-          ),
+          // Контент
+          _screens[_currentIndex],
         ],
+      ),
+      bottomNavigationBar: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+          child: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            selectedItemColor: Colors.greenAccent,
+            unselectedItemColor: Colors.grey.shade500,
+            backgroundColor: Colors.white.withOpacity(0.05), // Легкая стеклянная заливка
+            elevation: 0,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.timer),
+                label: 'Прогресс',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'Здоровье',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Настройки',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+
