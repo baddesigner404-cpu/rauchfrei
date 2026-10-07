@@ -66,11 +66,13 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-          child: BottomNavigationBar(
-            currentIndex: _currentIndex,
+      bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom > 0 
+        ? const SizedBox.shrink() 
+        : ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+              child: BottomNavigationBar(
+                currentIndex: _currentIndex,
             onTap: (index) {
               setState(() {
                 _currentIndex = index;

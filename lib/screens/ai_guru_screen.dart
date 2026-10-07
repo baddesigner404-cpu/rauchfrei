@@ -169,7 +169,12 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
               child: CircularProgressIndicator(color: Colors.white),
             ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.only(
+              left: 16.0,
+              right: 16.0,
+              top: 16.0,
+              bottom: MediaQuery.of(context).viewInsets.bottom > 0 ? 16.0 : 100.0,
+            ),
             child: Row(
               children: [
                 Expanded(
