@@ -31,9 +31,9 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
 
   Future<void> _initTts() async {
     await flutterTts.setLanguage("ru-RU");
-    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setSpeechRate(0.4); // Замедляем для ASMR
     await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(1.0);
+    await flutterTts.setPitch(1.1); // Чуть мягче
   }
 
   Future<void> _initChat() async {
@@ -47,17 +47,17 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
       model: 'gemini-2.5-flash',
       apiKey: apiKey,
       systemInstruction: Content.system(
-        "Ты — жесткий, бескомпромиссный ИИ-наставник. Твоя единственная цель — не дать человеку закурить. "
-        "Пользователь пытается бросить курить. Если он ищет оправдания (стресс, усталость, \"всего одну\"), "
-        "ты должен категорически запретить это. Никаких поблажек. Разговаривай уверенно, жестко, но по делу, "
-        "как строгий тренер. Не используй маркдаун для выделения текста, пиши простым текстом, так как твой текст будет озвучиваться голосом."
+        "Ты — спокойный, заботливый и обволакивающий ASMR-наставник. Твоя цель — снять стресс пользователя и мягко увести его от мыслей о курении. "
+        "Говори очень медленно, плавно, используй медитативные образы, как будто шепчешь на ушко. "
+        "Проси сделать глубокий вдох, расслабить плечи. Никакой агрессии — только абсолютный покой. "
+        "КРИТИЧЕСКИ ВАЖНО: НИКАКОГО МАРКДАУНА. ЗАПРЕЩЕНО использовать звездочки (*), решетки (#) и любое другое форматирование. Пиши только чистый текст, иначе голосовой движок сломается."
       ),
     );
 
     _chatSession = model.startChat();
     
     // Initial greeting
-    const greeting = "Привет. Я твой ИИ-наставник. Если захочешь сорваться и покурить — пиши мне. Я быстро вправлю тебе мозги.";
+    const greeting = "Привет... Сделай глубокий, медленный вдох... и мягкий выдох. Я здесь. Мы справимся с этим вместе, через спокойствие.";
     setState(() {
       _messages.add({'role': 'model', 'text': greeting});
     });
@@ -80,7 +80,10 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
 
     try {
       final response = await _chatSession!.sendMessage(Content.text(text));
-      final responseText = response.text ?? "Оставайся сильным. Не кури.";
+      String responseText = response.text ?? "Оставайся сильным... Дыши...";
+      
+      // Очищаем текст от любых маркдаун-символов, чтобы TTS не читал "звездочка звездочка"
+      responseText = responseText.replaceAll(RegExp(r'[*#_~`]'), '').trim();
       
       setState(() {
         _messages.add({'role': 'model', 'text': responseText});
