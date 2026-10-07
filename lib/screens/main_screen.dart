@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'dashboard_screen.dart';
 import 'health_screen.dart';
 import 'settings_screen.dart';
+import 'ai_guru_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     const DashboardScreen(),
     const HealthScreen(),
+    const AiGuruScreen(),
     const SettingsScreen(),
   ];
 
@@ -86,6 +88,10 @@ class _MainScreenState extends State<MainScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: 'Здоровье',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.smart_toy),
+                label: 'AI Гуру',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),

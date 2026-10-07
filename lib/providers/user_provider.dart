@@ -31,4 +31,11 @@ class UserProvider with ChangeNotifier {
     await prefs.setString('user_data', json.encode(data.toJson()));
     notifyListeners();
   }
+
+  Future<void> clearUserData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user_data');
+    _userData = null;
+    notifyListeners();
+  }
 }
