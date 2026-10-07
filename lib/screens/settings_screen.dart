@@ -25,8 +25,8 @@ class SettingsScreen extends StatelessWidget {
           ),
           const Divider(color: Colors.white10),
           ListTile(
-            leading: const Icon(Icons.delete_forever, color: Colors.redAccent),
-            title: const Text('Сбросить прогресс', style: TextStyle(color: Colors.redAccent)),
+            leading: const Icon(Icons.delete_forever, color: Colors.white70),
+            title: const Text('Сбросить прогресс', style: TextStyle(color: Colors.white)),
             onTap: () {
               // TODO: Диалог подтверждения и очистка
             },

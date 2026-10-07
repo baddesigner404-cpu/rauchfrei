@@ -90,11 +90,11 @@ class DashboardScreen extends StatelessWidget {
     }
 
     return GlassCard(
-      borderColor: Colors.orange.withOpacity(0.3),
+      borderColor: Colors.white.withOpacity(0.2),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Курс поддержки: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orangeAccent)),
+          Text('Курс поддержки: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 12),
           Text('Сегодня нужно принять: $pillsCount шт.', style: const TextStyle(color: Colors.white70)),
           const SizedBox(height: 4),
@@ -104,7 +104,7 @@ class DashboardScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(
               pillsCount,
-              (index) => const Icon(Icons.circle, size: 24, color: Colors.orangeAccent),
+              (index) => const Icon(Icons.circle, size: 24, color: Colors.white70),
             ),
           ),
         ],

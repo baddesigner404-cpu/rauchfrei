@@ -24,11 +24,11 @@ class RauchfreiApp extends StatelessWidget {
       title: 'Rauchfrei',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF070707),
-        primaryColor: Colors.green,
+        primaryColor: Colors.white,
         cardColor: Colors.transparent,
         colorScheme: const ColorScheme.dark(
-          primary: Colors.green,
-          secondary: Colors.orange,
+          primary: Colors.white,
+          secondary: Colors.grey,
         ),
         textTheme: ThemeData.dark().textTheme.apply(
           fontFamily: '.SF Pro Text',

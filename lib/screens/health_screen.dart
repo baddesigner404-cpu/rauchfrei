@@ -44,7 +44,7 @@ class HealthScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: GlassCard(
-              borderColor: isAchieved ? Colors.green.withOpacity(0.3) : Colors.white10,
+              borderColor: isAchieved ? Colors.white.withOpacity(0.3) : Colors.white10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -57,12 +57,12 @@ class HealthScreen extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: isAchieved ? Colors.greenAccent : Colors.white,
+                            color: isAchieved ? Colors.white : Colors.white54,
                           ),
                         ),
                       ),
                       if (isAchieved)
-                        const Icon(Icons.check_circle, color: Colors.greenAccent),
+                        const Icon(Icons.check_circle, color: Colors.white),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -71,7 +71,7 @@ class HealthScreen extends StatelessWidget {
                   LinearProgressIndicator(
                     value: progress,
                     backgroundColor: Colors.white10,
-                    color: isAchieved ? Colors.greenAccent : Colors.blueAccent,
+                    color: isAchieved ? Colors.white : Colors.white70,
                     minHeight: 8,
                     borderRadius: BorderRadius.circular(4),
                   ),

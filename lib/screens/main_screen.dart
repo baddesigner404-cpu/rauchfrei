@@ -54,8 +54,8 @@ class _MainScreenState extends State<MainScreen> {
                 _currentIndex = index;
               });
             },
-            selectedItemColor: Colors.greenAccent,
-            unselectedItemColor: Colors.grey.shade500,
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.grey.shade600,
             backgroundColor: Colors.white.withOpacity(0.05), // Легкая стеклянная заливка
             elevation: 0,
             items: const [
