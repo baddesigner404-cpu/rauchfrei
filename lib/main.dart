@@ -35,7 +35,7 @@ class RauchfreiApp extends StatelessWidget {
           bodyColor: Colors.grey.shade400,
           displayColor: Colors.grey.shade400,
         ),
-        cardTheme: const CardTheme(
+        cardTheme: const CardThemeData(
           color: Colors.transparent,
           elevation: 0,
           margin: EdgeInsets.zero,
