@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dashboard_screen.dart';
 import 'health_screen.dart';
+import 'settings_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     const DashboardScreen(),
     const HealthScreen(),
-    // В будущем тут будут Достижения и Помощь при накатах
+    const SettingsScreen(),
   ];
 
   @override
@@ -29,6 +30,9 @@ class _MainScreenState extends State<MainScreen> {
             _currentIndex = index;
           });
         },
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.white54,
+        backgroundColor: const Color(0xFF1A1A1A),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),
@@ -37,6 +41,10 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Здоровье',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Настройки',
           ),
         ],
       ),
