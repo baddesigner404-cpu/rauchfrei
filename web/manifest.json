@@ -1,6 +1,6 @@
 {
-    "name": "rauchfrei",
-    "short_name": "rauchfrei",
+    "name": "No Smoking No Vaping",
+    "short_name": "NSNV",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#000000",

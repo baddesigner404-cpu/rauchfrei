@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/user_data.dart';
 import '../providers/user_provider.dart';
 import 'main_screen.dart';
+import '../widgets/glass_card.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -89,80 +90,155 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Настройка Rauchfrei')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Когда вы выкурили последнюю сигарету?', style: TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: _pickDateTime,
-              child: Text('${_quitDate.day}.${_quitDate.month}.${_quitDate.year} ${_quitTime.format(context)}'),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: _cigPerDayController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Сигарет в день (в среднем)',
-                border: OutlineInputBorder(),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF0F1A15),
+                  Color(0xFF070707),
+                  Color(0xFF0A0F1A),
+                ],
               ),
             ),
-            const SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _pricePerPackController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Цена пачки',
-                      border: OutlineInputBorder(),
+          ),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  Center(
+                    child: GlassCard(
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset('assets/images/logo.png', fit: BoxFit.contain),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: _cigInPackController,
-                    keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
-                      labelText: 'Штук в пачке',
-                      border: OutlineInputBorder(),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'No Smoking\nNo Vaping',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            SwitchListTile(
-              title: const Text('Я принимаю препарат с Цитизином', style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: const Text('Табекс, Десмоксан и т.д.'),
-              value: _isTakingCytisine,
-              onChanged: (val) => setState(() => _isTakingCytisine = val),
-            ),
-            if (_isTakingCytisine) ...[
-              const SizedBox(height: 10),
-              const Text('Когда начат курс?', style: TextStyle(fontSize: 16)),
-              ElevatedButton(
-                onPressed: _pickCytisineDate,
-                child: Text('${_cytisineStartDate.day}.${_cytisineStartDate.month}.${_cytisineStartDate.year}'),
+                  const SizedBox(height: 40),
+                  GlassCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const Text('Когда вы выкурили последнюю сигарету/вейп?', style: TextStyle(fontSize: 16, color: Colors.white70)),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white10,
+                            foregroundColor: Colors.white,
+                          ),
+                          onPressed: _pickDateTime,
+                          child: Text('${_quitDate.day}.${_quitDate.month}.${_quitDate.year} ${_quitTime.format(context)}'),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          controller: _cigPerDayController,
+                          keyboardType: TextInputType.number,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: const InputDecoration(
+                            labelText: 'Стиков/сигарет в день (в среднем)',
+                            labelStyle: TextStyle(color: Colors.white54),
+                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                controller: _pricePerPackController,
+                                keyboardType: TextInputType.number,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: const InputDecoration(
+                                  labelText: 'Цена пачки / жижи',
+                                  labelStyle: TextStyle(color: Colors.white54),
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: TextField(
+                                controller: _cigInPackController,
+                                keyboardType: TextInputType.number,
+                                style: const TextStyle(color: Colors.white),
+                                decoration: const InputDecoration(
+                                  labelText: 'Штук в пачке',
+                                  labelStyle: TextStyle(color: Colors.white54),
+                                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
+                                  focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  GlassCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SwitchListTile(
+                          title: const Text('Я принимаю препарат с Цитизином', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                          subtitle: const Text('Табекс, Десмоксан и т.д.', style: TextStyle(color: Colors.white54)),
+                          value: _isTakingCytisine,
+                          activeColor: Colors.white,
+                          onChanged: (val) => setState(() => _isTakingCytisine = val),
+                        ),
+                        if (_isTakingCytisine) ...[
+                          const SizedBox(height: 10),
+                          const Text('Когда начат курс?', style: TextStyle(fontSize: 16, color: Colors.white70)),
+                          const SizedBox(height: 8),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white10,
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: _pickCytisineDate,
+                            child: Text('${_cytisineStartDate.day}.${_cytisineStartDate.month}.${_cytisineStartDate.year}'),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                    ),
+                    onPressed: _saveAndStart,
+                    child: const Text('НАЧАТЬ НОВУЮ ЖИЗНЬ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                  const SizedBox(height: 40),
+                ],
               ),
-            ],
-            const SizedBox(height: 40),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                backgroundColor: Colors.green,
-                foregroundColor: Colors.white,
-              ),
-              onPressed: _saveAndStart,
-              child: const Text('НАЧАТЬ НОВУЮ ЖИЗНЬ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

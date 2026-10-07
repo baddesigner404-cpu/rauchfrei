@@ -33,7 +33,7 @@ class DashboardScreen extends StatelessWidget {
           onDoubleTap: () {
             reloadWebPage();
           },
-          child: const Text('Rauchfrei', style: TextStyle(fontWeight: FontWeight.w600)),
+          child: const Text('No Smoking No Vaping', style: TextStyle(fontWeight: FontWeight.w600)),
         ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
@@ -47,6 +47,17 @@ class DashboardScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 10),
+              Center(
+                child: GlassCard(
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    padding: const EdgeInsets.all(12.0),
+                    child: Image.asset('assets/images/logo.png', fit: BoxFit.contain),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
               GlassCard(
                 child: Column(
                   children: [
