@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/health_milestone.dart';
 import '../providers/user_provider.dart';
 import '../widgets/glass_card.dart';
+import '../utils/reload.dart';
 
 class HealthScreen extends StatelessWidget {
   const HealthScreen({Key? key}) : super(key: key);
@@ -22,7 +23,12 @@ class HealthScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent, // Фон берется из MainScreen
       appBar: AppBar(
-        title: const Text('Здоровье', style: TextStyle(fontWeight: FontWeight.w600)),
+        title: GestureDetector(
+          onDoubleTap: () {
+            reloadWebPage();
+          },
+          child: const Text('Здоровье', style: TextStyle(fontWeight: FontWeight.w600)),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,

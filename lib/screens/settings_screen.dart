@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/reload.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -8,7 +9,12 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: const Text('Настройки', style: TextStyle(fontWeight: FontWeight.w600)),
+        title: GestureDetector(
+          onDoubleTap: () {
+            reloadWebPage();
+          },
+          child: const Text('Настройки', style: TextStyle(fontWeight: FontWeight.w600)),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
 import '../models/cytisine_schedule.dart';
 import '../widgets/glass_card.dart';
+import '../utils/reload.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -28,7 +29,12 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent, // Важно для стекла! Фон будет в MainScreen
       appBar: AppBar(
-        title: const Text('Rauchfrei', style: TextStyle(fontWeight: FontWeight.w600)),
+        title: GestureDetector(
+          onDoubleTap: () {
+            reloadWebPage();
+          },
+          child: const Text('Rauchfrei', style: TextStyle(fontWeight: FontWeight.w600)),
+        ),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
