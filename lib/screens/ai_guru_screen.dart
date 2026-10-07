@@ -44,7 +44,7 @@ class _AiGuruScreenState extends State<AiGuruScreen> {
     }
 
     final model = GenerativeModel(
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.8-flash',
       apiKey: apiKey,
       systemInstruction: Content.system(
         "Ты — спокойный, заботливый и обволакивающий ASMR-наставник. Твоя цель — снять стресс пользователя и мягко увести его от мыслей о курении. "
