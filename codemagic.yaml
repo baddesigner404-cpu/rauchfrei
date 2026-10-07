@@ -22,8 +22,3 @@ workflows:
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
-    publishing:
-      app_store_connect:
-        # These will be configured via Codemagic UI securely
-        auth: integration
-        submit_to_testflight: true
