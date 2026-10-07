@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../providers/user_provider.dart';
 import '../utils/reload.dart';
 
@@ -12,31 +11,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final TextEditingController _apiKeyController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadApiKey();
-  }
-
-  Future<void> _loadApiKey() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _apiKeyController.text = prefs.getString('gemini_api_key') ?? '';
-    });
-  }
-
-  Future<void> _saveApiKey(String key) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('gemini_api_key', key.trim());
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('API-ключ сохранен!'), backgroundColor: Colors.green),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,30 +27,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         padding: const EdgeInsets.all(16.0),
         children: [
-          const Text('AI Гуру', style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 8),
-          TextField(
-            controller: _apiKeyController,
-            style: const TextStyle(color: Colors.white),
-            decoration: const InputDecoration(
-              labelText: 'Gemini API Key',
-              labelStyle: TextStyle(color: Colors.white54),
-              enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white24)),
-              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-            ),
-            onSubmitted: _saveApiKey,
-          ),
-          const SizedBox(height: 8),
-          ElevatedButton(
-            onPressed: () => _saveApiKey(_apiKeyController.text),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white10,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text('Сохранить ключ'),
-          ),
-          const SizedBox(height: 32),
-          const Divider(color: Colors.white10),
           ListTile(
             leading: const Icon(Icons.edit, color: Colors.white70),
             title: const Text('Изменить данные', style: TextStyle(color: Colors.white)),

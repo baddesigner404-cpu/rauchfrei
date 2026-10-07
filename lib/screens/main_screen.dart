@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'dashboard_screen.dart';
 import 'health_screen.dart';
 import 'settings_screen.dart';
-import 'ai_guru_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -18,31 +17,33 @@ class _MainScreenState extends State<MainScreen> {
   final List<Widget> _screens = [
     const DashboardScreen(),
     const HealthScreen(),
-    const AiGuruScreen(),
     const SettingsScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // If the index was at AI Guru (2), and we removed it, cap it to the length
+    if (_currentIndex >= _screens.length) {
+      _currentIndex = 0;
+    }
+
     return Scaffold(
-      extendBody: true, // Важно для стекла под навигацией
+      extendBody: true,
       body: Stack(
         children: [
-          // Ambient Gradient Background
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Color(0xFF0F1A15), // Легкий темно-зеленый оттенок
+                  Color(0xFF0F1A15),
                   Color(0xFF070707),
-                  Color(0xFF0A0F1A), // Легкий темно-синий оттенок
+                  Color(0xFF0A0F1A),
                 ],
               ),
             ),
           ),
-          // Контент с плавной анимацией
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 300),
             switchInCurve: Curves.easeOut,
@@ -66,13 +67,11 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: MediaQuery.of(context).viewInsets.bottom > 0 
-        ? const SizedBox.shrink() 
-        : ClipRRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
-              child: BottomNavigationBar(
-                currentIndex: _currentIndex,
+      bottomNavigationBar: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+          child: BottomNavigationBar(
+            currentIndex: _currentIndex,
             onTap: (index) {
               setState(() {
                 _currentIndex = index;
@@ -80,7 +79,7 @@ class _MainScreenState extends State<MainScreen> {
             },
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.grey.shade600,
-            backgroundColor: Colors.white.withOpacity(0.05), // Легкая стеклянная заливка
+            backgroundColor: Colors.white.withOpacity(0.05),
             elevation: 0,
             items: const [
               BottomNavigationBarItem(
@@ -90,10 +89,6 @@ class _MainScreenState extends State<MainScreen> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: 'Здоровье',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.smart_toy),
-                label: 'AI Гуру',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
@@ -106,4 +101,3 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
-
