@@ -1,0 +1,29 @@
+workflows:
+  ios-automatic-build:
+    name: iOS Build and TestFlight
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Set up code signing settings
+        script: |
+          # This step will automatically be handled by Codemagic UI
+          # when you connect your Apple Developer account.
+          echo "Setting up keychain..."
+      - name: Get Flutter packages
+        script: |
+          flutter packages pub get
+      - name: Build iOS Application (.ipa)
+        script: |
+          flutter build ipa --release \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        # These will be configured via Codemagic UI securely
+        auth: integration
+        submit_to_testflight: true
