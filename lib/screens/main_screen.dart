@@ -31,8 +31,9 @@ class _MainScreenState extends State<MainScreen> {
           });
         },
         selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.white54,
-        backgroundColor: const Color(0xFF1A1A1A),
+        unselectedItemColor: Colors.grey.shade600,
+        backgroundColor: const Color(0xFF070707),
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),

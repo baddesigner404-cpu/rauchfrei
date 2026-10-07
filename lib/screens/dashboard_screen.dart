@@ -44,25 +44,20 @@ class DashboardScreen extends StatelessWidget {
               Text(
                 '$days дн. $hours ч.',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 48, color: Colors.green, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    children: [
-                      const Text('Сэкономлено', style: TextStyle(fontSize: 18)),
-                      const SizedBox(height: 10),
-                      Text(
-                        '${savedMoney.toStringAsFixed(2)} ₽', // Replace symbol later with preference
-                        style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blue),
-                      ),
-                    ],
+              Column(
+                children: [
+                  const Text('Сэкономлено', style: TextStyle(fontSize: 18)),
+                  const SizedBox(height: 10),
+                  Text(
+                    '${savedMoney.toStringAsFixed(2)} ₽', 
+                    style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                   ),
-                ),
+                ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               if (userData.isTakingCytisine && userData.cytisineStartDate != null)
                 _buildCytisineWidget(userData.cytisineStartDate!),
             ],
@@ -78,39 +73,30 @@ class DashboardScreen extends StatelessWidget {
     final interval = CytisineSchedule.getIntervalForDay(currentDay);
 
     if (pillsCount == 0) {
-      return const Card(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text('Курс Цитизина завершен! Вы молодец!', textAlign: TextAlign.center),
-        ),
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text('Курс завершен!', textAlign: TextAlign.center),
       );
     }
 
-    return Card(
-      color: const Color(0xFF2A1C0E), // Темно-оранжевый/коричневый для темной темы
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.orange.shade700, width: 1),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Курс Цитизина: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.orange)),
-            const SizedBox(height: 8),
-            Text('Сегодня нужно принять: $pillsCount табл.', style: const TextStyle(color: Colors.white70)),
-            Text('Интервал: $interval', style: const TextStyle(color: Colors.white70)),
-            const SizedBox(height: 12),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(
-                pillsCount,
-                (index) => const Icon(Icons.medication, color: Colors.orange, size: 32),
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Курс поддержки: День $currentDay', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          Text('Сегодня нужно принять: $pillsCount шт.'),
+          Text('Интервал: $interval'),
+          const SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(
+              pillsCount,
+              (index) => const Icon(Icons.circle, size: 24),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -37,58 +37,44 @@ class HealthScreen extends StatelessWidget {
 
           final bool isAchieved = progress == 1.0;
 
-          return Card(
-            margin: const EdgeInsets.only(bottom: 16.0),
-            color: isAchieved ? const Color(0xFF1B3320) : const Color(0xFF1A1A1A), // Темно-зеленый если выполнено, иначе темно-серый
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-              side: isAchieved ? const BorderSide(color: Colors.green, width: 1) : BorderSide.none,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          milestone.title,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: isAchieved ? Colors.green.shade400 : Colors.white,
-                          ),
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        milestone.title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: isAchieved ? Colors.green.shade400 : null,
                         ),
                       ),
-                      if (isAchieved)
-                        const Icon(Icons.check_circle, color: Colors.green),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    milestone.description,
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 12),
-                  LinearProgressIndicator(
-                    value: progress,
-                    backgroundColor: Colors.white10,
-                    color: isAchieved ? Colors.green : Colors.blue,
-                    minHeight: 8,
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    '${(progress * 100).toStringAsFixed(1)}%',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.white54,
                     ),
-                    textAlign: TextAlign.right,
-                  )
-                ],
-              ),
+                    if (isAchieved)
+                      const Icon(Icons.check_circle, color: Colors.green),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(milestone.description),
+                const SizedBox(height: 12),
+                LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: Colors.white10,
+                  color: isAchieved ? Colors.green : Colors.blue,
+                  minHeight: 8,
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  '${(progress * 100).toStringAsFixed(1)}%',
+                  style: const TextStyle(fontSize: 12),
+                  textAlign: TextAlign.right,
+                )
+              ],
             ),
           );
         },
