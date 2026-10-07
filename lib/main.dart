@@ -46,6 +46,12 @@ class RauchfreiApp extends StatelessWidget {
           elevation: 0,
           margin: EdgeInsets.zero,
         ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          scrolledUnderElevation: 0, // Убирает "свечение" при скролле
+          surfaceTintColor: Colors.transparent,
+        ),
         useMaterial3: true,
       ),
       home: Consumer<UserProvider>(

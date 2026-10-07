@@ -40,8 +40,28 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-          // Контент
-          _screens[_currentIndex],
+          // Контент с плавной анимацией
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.05),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
+            child: KeyedSubtree(
+              key: ValueKey<int>(_currentIndex),
+              child: _screens[_currentIndex],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: ClipRRect(

@@ -34,6 +34,7 @@ class HealthScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: ListView.builder(
+        physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         padding: const EdgeInsets.all(16.0),
         itemCount: healthMilestones.length,
         itemBuilder: (context, index) {
